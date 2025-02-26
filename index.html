@@ -41,11 +41,21 @@
 </div>
 <!-- Additional body modules -->
 <script>
+    const buildUrl = "Build";
+    const config = {
+        dataUrl: buildUrl + "/Balls.data.br",
+        frameworkUrl: buildUrl + "/Balls.framework.js.br",
+        codeUrl: buildUrl + "/Balls.wasm.br",
+        loaderUrl: buildUrl + "/Balls.loader.js", // Eksik olan loaderUrl tanımlandı
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DefaultCompany",
+        productName: "Falling Balls",
+        productVersion: "1.0"
+    };
+
     async function mergeWasmBr() {
-        const buildUrl = "Build";
-        const part1 = buildUrl + "/Balls.wasm.br.1";
-        const part2 = buildUrl + "/Balls.wasm.br.2";
-        const mergedUrl = buildUrl + "/Balls.wasm.br";
+        const part1 = buildUrl + "/Balls.part1.br";
+        const part2 = buildUrl + "/Balls.part2.br";
 
         async function fetchFile(url) {
             const response = await fetch(url);
@@ -62,7 +72,7 @@
             const blob = new Blob([mergedData], { type: "application/wasm" });
             const blobUrl = URL.createObjectURL(blob);
 
-            config.codeUrl = blobUrl;
+            config.codeUrl = blobUrl; // Doğrudan config içinde ayarlandı
             console.log("Balls.wasm.br başarıyla birleştirildi:", config.codeUrl);
         } catch (error) {
             console.error("Birleştirme hatası:", error);
@@ -70,6 +80,7 @@
     }
 
     mergeWasmBr();
+
       const container = document.querySelector("#unity-container");
         const canvas = document.querySelector("#unity-canvas");
         const loadingCover = document.querySelector("#loading-cover");
@@ -151,28 +162,22 @@
         function ConsumePurchases() { console.warn("ConsumePurchases is not implemented"); } // 
 
         // 
-        try {
-            const script = document.createElement("script");
-            script.src = loaderUrl;
-            script.onload = () => {
-                StartUnityInstance = function () {
-                    createUnityInstance(canvas, config, (progress) => {
-                        spinner.style.display = "none";
-                        progressBarEmpty.style.display = "";
-                        progressBarFull.style.width = `${100 * progress}%`;
-                    }).then((unityInstance) => {
-                        myGameInstance = unityInstance;
-                        loadingCover.style.display = "none";
-                    }).catch((message) => {
-                        console.error("Unity yükleme hatası:", message);
-                    });
-                };
-                StartUnityInstance();
-            };
-            document.body.appendChild(script);
-        } catch (error) {
-            console.error("Başlatma sırasında hata:", error);
-        }
+    try {
+        const script = document.createElement("script");
+        script.src = config.loaderUrl; // Eksik değişken tamamlandı
+        script.onload = () => {
+            createUnityInstance(document.querySelector("#unity-canvas"), config, (progress) => {
+                document.querySelector("#unity-progress-bar-full").style.width = `${100 * progress}%`;
+            }).then((unityInstance) => {
+                document.querySelector("#loading-cover").style.display = "none";
+            }).catch((message) => {
+                console.error("Unity yükleme hatası:", message);
+            });
+        };
+        document.body.appendChild(script);
+    } catch (error) {
+        console.error("Başlatma sırasında hata:", error);
+    }
 
         function InitGame() {
             try {
