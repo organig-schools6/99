@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+<ModulePrefs title="Google.com" />
+<Content type="html"><![CDATA[
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
@@ -10,31 +14,31 @@
     <script src="https://cdn.jsdelivr.net/gh/62-google-net/loooooj@main/Build/UnityLoader.js"></script>
     <script>
       //var unityInstance = UnityLoader.instantiate("unityContainer", "Build/GunSpin WebGL FinalVersion.json", {onProgress: UnityProgress});
-	  window.gameInstance = UnityLoader.instantiate("unityContainer", "https://cdn.jsdelivr.net/gh/62-google-net/loooooj@main/Build/GunSpin%20WebGL%20FinalVersion.json");
+      window.gameInstance = UnityLoader.instantiate("unityContainer", "https://cdn.jsdelivr.net/gh/62-google-net/loooooj@main/Build/GunSpin%20WebGL%20FinalVersion.json");
     </script>
-	<style>
-		* { 
-			margin: 0; padding: 0; 
-		} 
-		body { 
-			background: black; 
-		}
-		div#unityContainer {
-			margin: auto !important;
-			position: absolute !important;
-			left: 50%;
-			top: 50%;
-			-webkit-transform: translate(-50%, -50%);
-			transform: translate(-50%, -50%);
-			width: 720px; 
-			height: 480px;
-			width: 150vh !important;
-			height: 100vh !important;
-		}
-		.footer {
-		display:none 
-		}
-	</style>
+    <style>
+        * { 
+            margin: 0; padding: 0; 
+        } 
+        body { 
+            background: black; 
+        }
+        div#unityContainer {
+            margin: auto !important;
+            position: absolute !important;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            width: 720px; 
+            height: 480px;
+            width: 150vh !important;
+            height: 100vh !important;
+        }
+        .footer {
+        display:none 
+        }
+    </style>
   </head>
   <body style="overflow:hidden;">
     <div class="webgl-content">
@@ -47,3 +51,6 @@
     </div>
   </body>
 </html>
+
+]]></Content>
+</Module>
